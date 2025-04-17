@@ -127,6 +127,10 @@ Playlist control
 
 Gender-based EQ adjustments
 
+## 🎧 Feature-1: Added project enhancement
+
+
+
 📃 License
 This project is for educational purposes. Not affiliated with Spotify.
 
