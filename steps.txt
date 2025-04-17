@@ -1,0 +1,47 @@
+✅ Step-by-Step Git Workflow
+________________________________________
+🔁 1. Clone & Branch
+1.1 Clone your repository:
+Replace the link with your actual repo URL:
+
+
+git clone https://github.com/yourusername/Spotify_clone.git
+
+cd Spotify_clone
+1.2 Create and switch to a new branch named feature-1
+
+git checkout -b feature-1
+1.3 Push feature-1 branch to GitHub:
+git push -u origin feature-1
+🟢 Now you’ve cloned the repo and created a new branch called feature-1.
+________________________________________
+🛠️ 2. Commit & Push
+2.1 Make a change:
+For example, open README.md and add a line like:
+
+## 🎧 Feature-1: Added project enhancement
+2.2 Stage and commit your change:
+git add README.md
+git commit -m "Added enhancement title in README.md"
+2.3 Push your change to GitHub:
+git push
+________________________________________
+🔄 3. Merge Branches
+You have two ways to merge: via GitHub Pull Request (GUI) or Git CLI. Here's both:
+________________________________________
+✅ B. Via Git Commands
+Switch to main branch
+git checkout main
+Pull latest:
+git pull origin main
+Merge feature-1:
+git merge feature-1
+Push merged main to GitHub:
+git push origin main
+________________________________________
+✅ Optional: Clean Up
+After merging, you can delete the feature branch locally and remotely:
+
+git branch -d feature-1             # delete locally
+git push origin --delete feature-1  # delete remotely
+
