@@ -9,7 +9,7 @@ pipeline {
 
         stage('Clone Repository') {
             steps {
-                git url: 'https://github.com/YOUR_USERNAME/Spotify_clone.git', branch: 'main'
+                git url: 'https://github.com/starboyonkar/Spotify_clone.git', branch: 'main'
             }
         }
 
