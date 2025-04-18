@@ -1,1 +1,5 @@
+spotipy==2.23.0
+sounddevice==0.4.6
+vosk==0.3.45
+requests==2.31.0
 
