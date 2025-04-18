@@ -26,8 +26,12 @@ def spotify_login():
                              redirect_uri=REDIRECT_URI,
                              scope=SCOPE,
                              cache_path=".cache")
-    token_info = sp_oauth.get_access_token(as_dict=True)
+    token_info = sp_oauth.get_cached_token()
+   if token_info:
     access_token = token_info['access_token']
+else:
+    code = sp_oauth.get_authorize_url()
+    print("Go to the following URL:", code)
     sp = spotipy.Spotify(auth=access_token)
     user_info = sp.current_user()
 
