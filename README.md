@@ -16,7 +16,7 @@ This project is a **voice-controlled music player** that integrates with Spotify
   - `play [song name]`
 - 🔒 Spotify OAuth login
 - 📋 Automatically fetches user profile (Name, Email, DOB)
-- 📊 Applies dynamic EQ based on **age group**
+- 📊 Applies dynamic EQ based on **age group** to apply Eq parameters
 - 🌐 Opens Spotify Web Player in browser
 - 🧠 Voice recognition powered by **Vosk**
 - 🔄 Runs continuously in the background via multithreading
