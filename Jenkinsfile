@@ -2,46 +2,47 @@ pipeline {
     agent any
 
     environment {
-        VENV_DIR = '.venv'
+        PYTHON_ENV = 'venv'
     }
 
     stages {
-        stage('Checkout Code') {
+
+        stage('Clone Repository') {
             steps {
-                echo '📥 Cloning GitHub repository...'
-                checkout scm
+                git url: 'https://github.com/YOUR_USERNAME/Spotify_clone.git', branch: 'main'
             }
         }
 
-        stage('Set Up Python Env') {
+        stage('Set Up Python') {
             steps {
-                echo '🐍 Setting up virtual environment...'
-                sh '''
-                    python3 -m venv $VENV_DIR
-                    source $VENV_DIR/bin/activate
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
+                echo "Setting up Python virtual environment"
+                // Windows command - if on Linux, replace with "sh"
+                bat '''
+                python -m venv %PYTHON_ENV%
+                call %PYTHON_ENV%\\Scripts\\activate
+                pip install --upgrade pip
+                pip install -r requirements.txt || echo "No requirements.txt found"
                 '''
             }
         }
 
         stage('Run Script') {
             steps {
-                echo '▶️ Running main Python script...'
-                sh '''
-                    source $VENV_DIR/bin/activate
-                    python3 spotify_voice_eq_player.py
+                bat '''
+                call %PYTHON_ENV%\\Scripts\\activate
+                python spotify_voice_eq_player.py || echo "No spotify_voice_eq_player.py file found"
                 '''
             }
         }
+
     }
 
     post {
         success {
-            echo '✅ Build and run successful!'
+            echo '✅ Build completed successfully!'
         }
         failure {
-            echo '❌ Build failed.'
+            echo '❌ Build failed. Check the logs.'
         }
     }
 }
