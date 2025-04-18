@@ -26,23 +26,13 @@ def spotify_login():
                              redirect_uri=REDIRECT_URI,
                              scope=SCOPE,
                              cache_path=".cache")
-    
-    token_info = sp_oauth.get_cached_token()
-    
-    if not token_info:
-        auth_url = sp_oauth.get_authorize_url()
-        print("🔗 Open this URL in your browser:", auth_url)
-        webbrowser.open(auth_url)
-        response_url = input("📥 Paste the full redirect URL here: ")
-        code = sp_oauth.parse_response_code(response_url)
-        token_info = sp_oauth.get_access_token(code)
-    
+    token_info = sp_oauth.get_access_token(as_dict=True)
     access_token = token_info['access_token']
     sp = spotipy.Spotify(auth=access_token)
     user_info = sp.current_user()
 
-    name = user_info.get('display_name', 'Unknown')
-    email = user_info.get('email', 'unknown@example.com')
+    name = user_info['display_name']
+    email = user_info['email']
     dob = user_info.get('birthdate', '2000-01-01')  # May not be available
     gender = 'not specified'  # Not returned by Spotify API
     age = 2025 - int(dob.split("-")[0]) if dob else 25
