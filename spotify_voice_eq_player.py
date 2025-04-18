@@ -13,7 +13,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from datetime import datetime
 
-# ========== Configuration ==========
+# ========== Configuration ===========
 CLIENT_ID = '3d31e4b0e23f408b953072bb3f684a00'
 CLIENT_SECRET = 'd95fa70df6b146a699af44a80cca4f41'
 REDIRECT_URI = 'http://127.0.0.1:8000/callback'
