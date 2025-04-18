@@ -2,47 +2,44 @@ pipeline {
     agent any
 
     environment {
-        PYTHON_ENV = 'venv'
+        PYTHON = 'C:\\Users\\Onkar\\AppData\\Local\\Programs\\Python\\Python312\\python.exe'
+        PIP = 'C:\\Users\\Onkar\\AppData\\Local\\Programs\\Python\\Python312\\Scripts\\pip.exe'
     }
 
     stages {
-
         stage('Clone Repository') {
             steps {
-                git url: 'https://github.com/starboyonkar/Spotify_clone.git', branch: 'main'
+                echo '✅ Code pulled from GitHub automatically!'
             }
         }
 
-        stage('Set Up Python') {
+        stage('Set Up Environment') {
             steps {
-                echo "Setting up Python virtual environment"
-                // Windows command - if on Linux, replace with "sh"
                 bat '''
-                python -m venv %PYTHON_ENV%
-                call %PYTHON_ENV%\\Scripts\\activate
-                pip install --upgrade pip
-                pip install -r requirements.txt || echo "No requirements.txt found"
+                %PYTHON% -m venv venv
+                call venv\\Scripts\\activate
+                venv\\Scripts\\pip install --upgrade pip
+                venv\\Scripts\\pip install -r requirements.txt || echo "No requirements.txt found"
                 '''
             }
         }
 
-        stage('Run Script') {
+        stage('Run App') {
             steps {
                 bat '''
-                call %PYTHON_ENV%\\Scripts\\activate
-                python spotify_voice_eq_player.py || echo "No spotify_voice_eq_player.py file found"
+                call venv\\Scripts\\activate
+                venv\\Scripts\\python spotify_voice_eq_player.py
                 '''
             }
         }
-
     }
 
     post {
         success {
-            echo '✅ Build completed successfully!'
+            echo '✅ Build Success!'
         }
         failure {
-            echo '❌ Build failed. Check the logs.'
+            echo '❌ Build Failed. Check logs.'
         }
     }
 }
