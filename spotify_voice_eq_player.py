@@ -21,24 +21,33 @@ SCOPE = 'user-read-playback-state user-modify-playback-state user-read-private u
 
 # ========== Sign Up and Profile ==========
 def spotify_login():
-    sp_oauth = SpotifyOAuth(client_id=CLIENT_ID,
-                             client_secret=CLIENT_SECRET,
-                             redirect_uri=REDIRECT_URI,
-                             scope=SCOPE,
-                             cache_path=".cache")
-    token_info = sp_oauth.get_cached_token()
-   if token_info:
-    access_token = token_info['access_token']
-else:
-    code = sp_oauth.get_authorize_url()
-    print("Go to the following URL:", code)
-    sp = spotipy.Spotify(auth=access_token)
-    user_info = sp.current_user()
+    sp_oauth = SpotifyOAuth(
+        client_id=CLIENT_ID,
+        client_secret=CLIENT_SECRET,
+        redirect_uri=REDIRECT_URI,
+        scope=SCOPE,
+        cache_path=".cache"
+    )
 
-    name = user_info['display_name']
-    email = user_info['email']
+    token_info = sp_oauth.get_cached_token()
+
+    if not token_info:
+        # If no cached token, manually open auth URL and get token
+        auth_url = sp_oauth.get_authorize_url()
+        print("🔗 Please open this URL in your browser:", auth_url)
+        webbrowser.open(auth_url)
+        response_url = input("📥 Paste the redirected URL after login: ")
+        code = sp_oauth.parse_response_code(response_url)
+        token_info = sp_oauth.get_access_token(code)
+
+    access_token = token_info['access_token']
+    sp = spotipy.Spotify(auth=access_token)
+
+    user_info = sp.current_user()
+    name = user_info.get('display_name', 'Unknown')
+    email = user_info.get('email', 'unknown@example.com')
     dob = user_info.get('birthdate', '2000-01-01')  # May not be available
-    gender = 'not specified'  # Not returned by Spotify API
+    gender = 'not specified'  # Spotify does not return gender
     age = 2025 - int(dob.split("-")[0]) if dob else 25
 
     profile = {
@@ -48,23 +57,12 @@ else:
         "age": age,
         "gender": gender
     }
+
     with open("user_profile.json", "w") as f:
         json.dump(profile, f)
+
     return sp, profile
 
-# ========== EQ Setup ==========
-def apply_eq(profile):
-    age = profile['age']
-    eq_settings = {}
-    if age < 20:
-        eq_settings = {"bass": 7, "treble": 5}
-    elif age < 40:
-        eq_settings = {"bass": 5, "treble": 5}
-    else:
-        eq_settings = {"bass": 3, "treble": 7}
-
-    print(f"Applied EQ for {profile['name']} (age {age}): Bass {eq_settings['bass']} | Treble {eq_settings['treble']}")
-    return eq_settings
 
 # ========== Spotify Control ==========
 def play_song(sp, song_name):
