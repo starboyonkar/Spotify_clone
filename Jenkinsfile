@@ -39,7 +39,7 @@ pipeline {
             echo '✅ Build Success!'
         }
         failure {
-            echo '❌ Build Failed. Check logs.'
+            echo '❌ Build Failed. Check logs...'
         }
     }
 }
