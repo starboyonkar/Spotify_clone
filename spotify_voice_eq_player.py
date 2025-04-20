@@ -1,4 +1,4 @@
-e# Complete code for a Spotify voice-controlled music player with automatic EQ settings
+# Complete code for a Spotify voice-controlled music player with automatic EQ settings
 # based on user profile (name, email, dob, age, gender), with real-time voice control
 
 import os
@@ -93,7 +93,7 @@ def callback(indata, frames, time, status):
     q.put(bytes(indata))
 
 def recognize_voice(sp):
-    print("Voice control started here. Say commands like 'play', 'pause', 'next', 'previous', or 'play [song name]'")
+    print("Voice control started. Say commands like 'play', 'pause', 'next', 'previous', or 'play [song name]'")
     with sd.RawInputStream(samplerate=16000, blocksize=8000, dtype='int16',
                            channels=1, callback=callback):
         rec = vosk.KaldiRecognizer(model, 16000)
