@@ -6,6 +6,11 @@ Built using **Python**, **Spotipy (Spotify API)**, **Vosk (speech recognition)**
 
 ---
 
+![image](https://github.com/user-attachments/assets/76c614bf-a182-492e-9795-d73743562a50)
+
+---
+
+
 ## 🧠 Key Features
 
 - 🎙️ **Real-time voice control**:
@@ -114,12 +119,10 @@ Example:
 ---
 
 ## 🎚️ EQ Settings Based on Age
+---
 
-| Age Range | Bass | Treble |
-|-----------|------|--------|
-| < 20      | 7    | 5      |
-| 20 - 40   | 5    | 5      |
-| > 40      | 3    | 7      |
+![Screenshot 2025-05-19 092840](https://github.com/user-attachments/assets/128a2ca5-1d88-45b6-914b-bd5d24edc359)
+
 
 ---
 
